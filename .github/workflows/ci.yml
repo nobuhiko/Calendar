@@ -8,15 +8,13 @@ on:
       - master
 
 jobs:
-  tests:
-    runs-on: ${{ matrix.operating-system }}
+  build:
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        operating-system: ['ubuntu-latest']
-        php-version: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4-rc' ]
-
-    name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}
+        php-version: [7.4, 8.0, 8.1]
+        composer-flags: ["--prefer-stable", ""]
 
     steps:
       - name: Checkout code
@@ -31,23 +29,25 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: |
+          dir=$(composer config cache-files-dir)
+          echo "dir=$dir" >> $GITHUB_ENV
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('composer.*') }}-${{ matrix.composer-flags }}
+          path: ${{ env.dir }}
+          key: composer-${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('composer.lock') }}-${{ matrix.composer-flags }}
           restore-keys: |
-            composer-${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('composer.*') }}-
+            composer-${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('composer.lock') }}-
             composer-${{ runner.os }}-${{ matrix.php-version }}-
             composer-${{ runner.os }}-
             composer-
 
       - name: Install dependencies
         run: |
-          composer update --no-interaction --prefer-dist --no-progress ${{ matrix.composer-flags }}
+          composer install --no-interaction --prefer-dist --no-progress ${{ matrix.composer-flags }}
 
       - name: Run tests
         run: |
-          vendor/bin/phpunit
+          vendor/bin/phpunit --parallel
