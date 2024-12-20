@@ -21,7 +21,6 @@ jobs:
       - name: Run .travis.yml build script
         uses: ktomk/run-travis-yml@v1
         with:
-          file: .travis.yml
           steps: |
             install
             script
