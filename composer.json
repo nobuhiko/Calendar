@@ -14,7 +14,7 @@
     "include-path": [
         "./"
     ],
-    "license": "PHP",
+    "license": "BSD-2-Clause",
     "name": "nobuhiko/calendar",
     "type": "library",
     "require": {
