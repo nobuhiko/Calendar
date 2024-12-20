@@ -13,8 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [7.4, 8.0, 8.1]
-        composer-flags: ["--prefer-stable", ""]
+        php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4-rc"]
 
     steps:
       - name: Checkout code
@@ -27,27 +26,10 @@ jobs:
           tools: composer:v2
           coverage: none
 
-      - name: Get composer cache directory
-        id: composer-cache
-        run: |
-          dir=$(composer config cache-files-dir)
-          echo "dir=$dir" >> $GITHUB_ENV
-
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.dir }}
-          key: composer-${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('composer.lock') }}-${{ matrix.composer-flags }}
-          restore-keys: |
-            composer-${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('composer.lock') }}-
-            composer-${{ runner.os }}-${{ matrix.php-version }}-
-            composer-${{ runner.os }}-
-            composer-
-
       - name: Install dependencies
         run: |
           composer install --no-interaction --prefer-dist --no-progress ${{ matrix.composer-flags }}
 
       - name: Run tests
         run: |
-          vendor/bin/phpunit --parallel
+          vendor/bin/phpunit
