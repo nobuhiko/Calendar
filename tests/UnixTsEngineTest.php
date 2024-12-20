@@ -114,7 +114,7 @@ class UnixTsEngineTest extends \PHPUnit\Framework\TestCase
     }
     function testIsToday()
     {
-        $stamp = mktime();
+        $stamp = time();
         $this->assertTrue($this->engine->isToday($stamp));
         $stamp += 1000000000;
         $this->assertFalse($this->engine->isToday($stamp));

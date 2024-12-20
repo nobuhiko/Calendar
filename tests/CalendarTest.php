@@ -140,7 +140,7 @@ class CalendarTest extends \PHPUnit\Framework\TestCase
     }
     function testIsToday()
     {
-        $stamp = mktime();
+        $stamp = time();
         $this->cal->setTimestamp($stamp);
         $this->assertTrue($this->cal->isToday());
 

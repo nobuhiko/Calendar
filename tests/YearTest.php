@@ -2,6 +2,8 @@
 
 class YearTest extends \PHPUnit\Framework\TestCase
 {
+    public $cal;
+
     function setUp(): void
     {
         $this->cal = new Calendar_Year(2003);

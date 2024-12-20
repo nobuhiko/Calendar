@@ -4,7 +4,7 @@ require_once 'Calendar/Validator.php';
 
 class ValidatorErrorTest extends \PHPUnit\Framework\TestCase
 {
-    var $vError;
+    public $vError;
     function setUp(): void
     {
         $this->vError = new Calendar_Validation_Error('foo', 20, 'bar');
