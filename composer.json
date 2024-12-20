@@ -1,19 +1,8 @@
 {
     "authors": [
         {
-            "email": "hfuecks@phppatterns.com",
-            "name": "Harry Fuecks",
-            "role": "Lead"
-        },
-        {
-            "email": "l.alberton@quipo.it",
-            "name": "Lorenzo Alberton",
-            "role": "Developer"
-        },
-        {
-            "email": "greg@chiaraquartet.net",
-            "name": "Greg Beaver",
-            "role": "Helper"
+            "email": "nobuhiko.kimoto@gmail.com",
+            "name": "KIMOTO Nobuhiko"
         }
     ],
     "autoload": {
@@ -26,11 +15,7 @@
         "./"
     ],
     "license": "PHP",
-    "name": "pear/calendar",
-    "support": {
-        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Calendar",
-        "source": "https://github.com/pear/Calendar"
-    },
+    "name": "nobuhiko/calendar",
     "type": "library",
     "require": {
         "pear/pear_exception": "*",
