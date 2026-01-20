@@ -6,9 +6,11 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Calendar": "./"
-        }
+        "classmap": ["Calendar/"],
+        "exclude-from-classmap": ["docs/", "tests/"]
+    },
+    "autoload-dev": {
+        "classmap": ["tests/"]
     },
     "description": "More info available on: http://pear.php.net/package/Calendar",
     "include-path": [
